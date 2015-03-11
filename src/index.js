@@ -4,6 +4,6 @@ module.exports = (function () {
 	'use strict';
 
 	return {
-		linearRegression: LinearRegression.calculate.bind(LinearRegression)
+		LinearRegression: LinearRegression
 	};
 })();

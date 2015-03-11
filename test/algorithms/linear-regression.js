@@ -1,10 +1,12 @@
 var assert = require('assert');
+
 var ml = require('../coverage/instrument/src/index');
+var LinearRegression = ml.LinearRegression;
 
 module.exports = function () {
 	'use strict';
 
-	it('Simple', function () {
+	it('Regression Line', function () {
 		var points = [
 			{
 				x: 1,
@@ -28,10 +30,39 @@ module.exports = function () {
 			}
 		];
 
-		var regressionLine = ml.linearRegression(points);
+		var regressionLine = LinearRegression.getRegressionLine(points);
 
 		assert.strictEqual(regressionLine.b0, 2.2);
 		assert.strictEqual(regressionLine.b1, 0.6);
+	});
+
+	it('R Squared', function () {
+		var points = [
+			{
+				x: 1,
+				y: 2
+			},
+			{
+				x: 2,
+				y: 4
+			},
+			{
+				x: 3,
+				y: 5
+			},
+			{
+				x: 4,
+				y: 4
+			},
+			{
+				x: 5,
+				y: 5
+			}
+		];
+
+		var rSquared = LinearRegression.getRSquared(points);
+
+		assert.strictEqual(rSquared, 0.5999999999999998);
 	});
 
 };

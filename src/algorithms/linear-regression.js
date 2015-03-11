@@ -3,7 +3,7 @@ module.exports = (function () {
 
 	function LinearRegression () {}
 
-	LinearRegression.prototype.calculate = function (points) {
+	LinearRegression.prototype.getRegressionLine = function (points) {
 		var averagePoint = this.getAveragePoint(points);
 
 		var len = points.length;
@@ -45,6 +45,29 @@ module.exports = (function () {
 		averagePoint.y = averagePoint.y / points.length;
 
 		return averagePoint;
+	};
+
+	LinearRegression.prototype.getRSquared = function (points) {
+		var regressionLine = this.getRegressionLine(points);
+		var averagePoint = this.getAveragePoint(points);
+
+		var len = points.length;
+		var estDistancesSquared = 0;
+		var estDistance = 0;
+		var yDistancesSquared = 0;
+		var yDistance = 0;
+
+		while (len--) {
+			estDistance = (regressionLine.b0 + regressionLine.b1 * (len + 1)) - averagePoint.y;
+			yDistance = points[len].y - averagePoint.y;
+
+			yDistancesSquared += Math.pow(yDistance, 2);
+			estDistancesSquared += Math.pow(estDistance, 2);
+		}
+
+		var rSquared = estDistancesSquared / yDistancesSquared;
+
+		return rSquared;
 	};
 
 	return new LinearRegression();
