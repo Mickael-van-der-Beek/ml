@@ -1,0 +1,7 @@
+{
+	"preset": "google",
+	"maximumLineLength": 120,
+	"validateIndentation": "\t",
+	"disallowKeywordsOnNewLine": null,
+	"disallowSpacesInAnonymousFunctionExpression": null
+}

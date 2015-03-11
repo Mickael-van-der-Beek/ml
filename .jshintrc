@@ -1,0 +1,32 @@
+{
+	"boss": true,
+	"expr": true,
+	"curly": true,
+	"undef": true,
+	"noarg": true,
+	"immed": true,
+	"eqnull": true,
+	"strict": true,
+	"unused": true,
+	"freeze": true,
+	"eqeqeq": true,
+	"nonbsp": true,
+	"nonew": true,
+	"newcap": true,
+	"noempty": true,
+	"quotmark": "single",
+
+	"browser": false,
+	"node": true,
+
+	"globals": {
+		"beforeEach": false,
+		"before": false,
+
+		"afterEach": false,
+		"after": false,
+
+		"describe": false,
+		"it": false
+    }
+}
