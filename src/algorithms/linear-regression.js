@@ -70,5 +70,22 @@ module.exports = (function () {
 		return rSquared;
 	};
 
+	LinearRegression.prototype.getStdErrorEst = function (points) {
+		var regressionLine = this.getRegressionLine(points);
+
+		var len = points.length;
+		var estDistancesSquared = 0;
+		var estDistance = 0;
+
+		while (len--) {
+			estDistance = (regressionLine.b0 + regressionLine.b1 * (len + 1)) - points[len].y;
+			estDistancesSquared += Math.pow(estDistance, 2);
+		}
+
+		var stdErrorEst = Math.sqrt(estDistancesSquared / (points.length - 2));
+
+		return stdErrorEst;
+	};
+
 	return new LinearRegression();
 })();

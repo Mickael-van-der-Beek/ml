@@ -65,4 +65,33 @@ module.exports = function () {
 		assert.strictEqual(rSquared, 0.5999999999999998);
 	});
 
+	it('Standard Error of the Estimate', function () {
+		var points = [
+			{
+				x: 1,
+				y: 2
+			},
+			{
+				x: 2,
+				y: 4
+			},
+			{
+				x: 3,
+				y: 5
+			},
+			{
+				x: 4,
+				y: 4
+			},
+			{
+				x: 5,
+				y: 5
+			}
+		];
+
+		var rSquared = LinearRegression.getStdErrorEst(points);
+
+		assert.strictEqual(rSquared, 0.8944271909999159);
+	});
+
 };
