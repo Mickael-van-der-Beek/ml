@@ -58,7 +58,7 @@ module.exports = (function () {
 		var yDistance = 0;
 
 		while (len--) {
-			estDistance = (regressionLine.b0 + regressionLine.b1 * (len + 1)) - averagePoint.y;
+			estDistance = (regressionLine.b0 + regressionLine.b1 * points[len].x) - averagePoint.y;
 			yDistance = points[len].y - averagePoint.y;
 
 			yDistancesSquared += Math.pow(yDistance, 2);
@@ -78,7 +78,8 @@ module.exports = (function () {
 		var estDistance = 0;
 
 		while (len--) {
-			estDistance = (regressionLine.b0 + regressionLine.b1 * (len + 1)) - points[len].y;
+			estDistance = (regressionLine.b0 + regressionLine.b1 * points[len].x) - points[len].y;
+
 			estDistancesSquared += Math.pow(estDistance, 2);
 		}
 
