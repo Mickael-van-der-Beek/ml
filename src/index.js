@@ -1,3 +1,4 @@
+var PolynomialRegression = require('./algorithms/polynomial-regression');
 var PredictionIntervals = require('./algorithms/prediction-intervals');
 var LinearRegression = require('./algorithms/linear-regression');
 
@@ -13,6 +14,7 @@ module.exports = (function () {
 		 * Algorithms
 		 */
 
+		PolynomialRegression: PolynomialRegression,
 		PredictionIntervals: PredictionIntervals,
 		LinearRegression: LinearRegression,
 
