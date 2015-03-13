@@ -1,6 +1,7 @@
 var assert = require('assert');
 
-var ml = require('../coverage/instrument/src/index');
+// var ml = require('../coverage/instrument/src/index');
+var ml = require('../../src/index');
 var PolynomialRegression = ml.PolynomialRegression;
 
 module.exports = function () {
