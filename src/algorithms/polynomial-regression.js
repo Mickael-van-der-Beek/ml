@@ -14,10 +14,8 @@ module.exports = (function () {
 			return row;
 		});
 
-		systemMatrix.push(eigenValues[0]);
-
-		// console.log('designMatrix_1=', designMatrix);
-		// console.log('eigenValues_1=', eigenValues);
+		console.log('designMatrix_1=', designMatrix);
+		console.log('eigenValues_1=', eigenValues);
 
 		var maxi;
 		var k;
@@ -48,20 +46,20 @@ module.exports = (function () {
 			// console.log('designMatrix_2=', systemMatrix);
 			// console.log('maxi=', maxi);
 
-			for (i = k + 1; i <= order; i++) {
-				for (j = k + 1; j <= order + 1; j++) {
-					// console.log('\n\norder=' + order);
-					// console.log('i=' + i);
-					// console.log('k=' + k);
-					// console.log('j=' + j);
-					// console.log('systemMatrix[i][j]=' + systemMatrix[i - 1][j - 1]);
-					// console.log('systemMatrix[k][j]=' + systemMatrix[k][j - 1]);
-					// console.log('systemMatrix[i][k]=' + systemMatrix[i - 1][k]);
-					// console.log('systemMatrix[k][k]=' + systemMatrix[k][k]);
-					// console.log(systemMatrix);
-					systemMatrix[i][j - 1] = systemMatrix[i - 1][j - 1] -
-						systemMatrix[k][j - 1] * (
-							systemMatrix[i - 1][k] / systemMatrix[k][k]
+			for (i = k + 1; i < order; i++) {
+				for (j = k + 1; j < order + 1; j++) {
+					console.log('\n\norder=' + order);
+					console.log('i=' + i);
+					console.log('k=' + k);
+					console.log('j=' + j);
+					console.log('systemMatrix[i][j]=' + systemMatrix[i][j]);
+					console.log('systemMatrix[k][j]=' + systemMatrix[k][j]);
+					console.log('systemMatrix[i][k]=' + systemMatrix[i][k]);
+					console.log('systemMatrix[k][k]=' + systemMatrix[k][k]);
+					console.log(systemMatrix);
+					systemMatrix[i][j] = systemMatrix[i][j] -
+						systemMatrix[k][j] * (
+							systemMatrix[i][k] / systemMatrix[k][k]
 						);
 				}
 
@@ -69,8 +67,8 @@ module.exports = (function () {
 			}
 		}
 
-		// console.log('designMatrix_2=', systemMatrix);
-		// console.log('eigenValues_1=', eigenValues);
+		console.log('designMatrix_2=', systemMatrix);
+		console.log('eigenValues_2=', eigenValues);
 
 		return systemMatrix;
 	};
