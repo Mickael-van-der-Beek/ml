@@ -102,7 +102,7 @@ function GruntTasks (grunt) {
 	]);
 
 	grunt.registerTask('ci', [
-		'verify',
+		// 'verify',
 		'test'
 	]);
 }

@@ -3,7 +3,19 @@ module.exports = (function () {
 
 	function LinearRegression () {}
 
-	LinearRegression.prototype.getRegressionLine = function (points) {
+	LinearRegression.prototype.getRegressionLine = function (points, method, learningRate) {
+		if (method === 'least-squared') {
+			return this.getRegressionLineByLeastSquare(points);
+		}
+
+		if (method === 'gradient-descent') {
+			return this.getRegressionLineByGradientDescent(points, learningRate);
+		}
+
+		return null;
+	};
+
+	LinearRegression.prototype.getRegressionLineByLeastSquare = function (points) {
 		var averagePoint = this.getAveragePoint(points);
 
 		var len = points.length;
@@ -48,7 +60,7 @@ module.exports = (function () {
 	};
 
 	LinearRegression.prototype.getRSquared = function (points) {
-		var regressionLine = this.getRegressionLine(points);
+		var regressionLine = this.getRegressionLine(points, 'least-squared');
 		var averagePoint = this.getAveragePoint(points);
 
 		var len = points.length;
@@ -71,7 +83,7 @@ module.exports = (function () {
 	};
 
 	LinearRegression.prototype.getStdErrorEst = function (points) {
-		var regressionLine = this.getRegressionLine(points);
+		var regressionLine = this.getRegressionLine(points, 'least-squared');
 
 		var len = points.length;
 		var estDistancesSquared = 0;
@@ -86,6 +98,47 @@ module.exports = (function () {
 		var stdErrorEst = Math.sqrt(estDistancesSquared / (points.length - 2));
 
 		return stdErrorEst;
+	};
+
+	LinearRegression.prototype.getRegressionLineByGradientDescent = function (points, learningRate) {
+		var convergedB0 = false;
+		var convergedB1 = false;
+		var cachedB0 = 1;
+		var cachedB1 = 1;
+		var len = points.length;
+		var b0 = 1;
+		var b1 = 1;
+
+		while (convergedB0 === false || convergedB1 === false) {
+			cachedB0 = learningRate * (1 / len) * points.reduce(function (sum, point) {
+				return sum + ((b0 + b1 * point.x) - point.y);
+			}, 0);
+
+			cachedB1 = learningRate * (1 / len) * points.reduce(function (sum, point) {
+				return sum + (((b0 + b1 * point.x) - point.y) * point.x);
+			}, 0);
+
+			if (Math.abs(cachedB0 - b0) < 0.001) {
+				convergedB0 = true;
+			}
+			else {
+				b0 = cachedB0;
+			}
+
+			if (Math.abs(cachedB1 - b1) < 0.001) {
+				convergedB1 = true;
+			}
+			else {
+				b1 = cachedB1;
+			}
+		}
+
+		var regressionLine = {
+			b0: b0,
+			b1: b1
+		};
+
+		return regressionLine;
 	};
 
 	return new LinearRegression();

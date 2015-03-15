@@ -14,61 +14,50 @@ module.exports = (function () {
 			return row;
 		});
 
-		console.log('designMatrix_1=', designMatrix);
-		console.log('eigenValues_1=', eigenValues);
-
-		var maxi;
+		var i = 0;
+		var j = 0;
+		var pivot;
+		var div;
+		var mult;
 		var k;
-		var i;
 		var p;
-		var j;
+		var u;
+		var l;
 
-		for (k = 0; k < order; k++) {
-			maxi = k;
+		while (i < order && j < order + 1) {
+			pivot = i;
 
-			for (i = k; i < order; i++) {
-				if (Math.abs(systemMatrix[i][k]) > Math.abs(systemMatrix[maxi][k])) {
-					maxi = i;
+			for (k = i + 1; k < order; k++) {
+				if (Math.abs(systemMatrix[k][j]) > Math.abs(systemMatrix[pivot][j])) {
+					pivot = k;
 				}
 			}
 
-			if (systemMatrix[maxi][k] === 0) {
+			if (systemMatrix[pivot][j] === 0) {
 				break;
 			}
 
-			// console.log('designMatrix_1=', systemMatrix);
-			// console.log('maxi=', maxi);
+			p = systemMatrix[pivot];
+			systemMatrix[pivot] = systemMatrix[i];
+			systemMatrix[i] = p;
 
-			p = systemMatrix[maxi];
-			systemMatrix[maxi] = systemMatrix[k];
-			systemMatrix[k] = p;
+			div = systemMatrix[i][j];
 
-			// console.log('designMatrix_2=', systemMatrix);
-			// console.log('maxi=', maxi);
-
-			for (i = k + 1; i < order; i++) {
-				for (j = k + 1; j < order + 1; j++) {
-					console.log('\n\norder=' + order);
-					console.log('i=' + i);
-					console.log('k=' + k);
-					console.log('j=' + j);
-					console.log('systemMatrix[i][j]=' + systemMatrix[i][j]);
-					console.log('systemMatrix[k][j]=' + systemMatrix[k][j]);
-					console.log('systemMatrix[i][k]=' + systemMatrix[i][k]);
-					console.log('systemMatrix[k][k]=' + systemMatrix[k][k]);
-					console.log(systemMatrix);
-					systemMatrix[i][j] = systemMatrix[i][j] -
-						systemMatrix[k][j] * (
-							systemMatrix[i][k] / systemMatrix[k][k]
-						);
-				}
-
-				systemMatrix[i][k] = 0;
+			for (k = 0; k < order + 1; k++) {
+				systemMatrix[i][k] = systemMatrix[i][k] / div;
 			}
-		}
 
-		console.log('designMatrix_2=', systemMatrix);
-		console.log('eigenValues_2=', eigenValues);
+			for (u = i + 1; u < order; u++) {
+				mult = systemMatrix[u][j];
+
+				for (l = 0; l < order + 1; l++) {
+					systemMatrix[u][l] -= mult * systemMatrix[i][l];
+				}
+			}
+
+			i += 1;
+			j += 1;
+		}
 
 		return systemMatrix;
 	};
